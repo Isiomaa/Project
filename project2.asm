@@ -9,11 +9,11 @@ main:
     # Initialize registers
     li $v0, 4           # syscall: print_str
     la $a0, prompt      # load address of prompt string
-    syscall
+    syscall             # Commit 1: Display Prompt message 
 
 get_input:
     li $v0, 5           # syscall: read_int
-    syscall
+    syscall             # Commit 2: Read integer input 
     move $s0, $v0       # save the input in $s0
 
     # Check if the input is legal
@@ -24,7 +24,7 @@ get_input:
     # Print Fibonacci sequence
     li $v0, 4           # syscall: print_str
     la $a0, result_msg  # load address of result message
-    syscall
+    syscall             # Commit 3: Display result message 
 
     # Initialize Fibonacci sequence
     li $t0, 0           # fib(n-2)
@@ -41,12 +41,12 @@ fibonacci_loop:
     # Print fib(n)
     li $v0, 1           # syscall: print_int
     move $a0, $t3       # move fib(n) to $a0
-    syscall
+    syscall             # Commit 4: Display Fibonnaci number 
 
     # Print newline
     li $v0, 4           # syscall: print_str
     la $a0, newline      # load address of newline string
-    syscall
+    syscall              # commit 5: Display newline 
 
     # Update fib(n-2) and fib(n-1) for the next iteration
     move $t0, $t1       # fib(n-2) = fib(n-1)
@@ -61,13 +61,13 @@ illegal:
     # Print error message
     li $v0, 4           # syscall: print_str
     la $a0, error_msg   # load address of error message
-    syscall
+    syscall             # Commit 6: Display error message 
     j get_input         # jump back to get_input to prompt for input again
 
 end_program:
     # Exit program
     li $v0, 10          # syscall: exit
-    syscall
+    syscall             # Commit 7: Exit Program
 
     .data
 result_msg: .asciiz "Fibonacci sequence:\n"
